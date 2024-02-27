@@ -1,0 +1,36 @@
+<!-- edit.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Subject</title>
+  </head>
+  <body>
+    <h1>Edit Subject</h1>
+
+    <form action="/subjects/update/<%= subject.id %>" method="POST" enctype="multipart/form-data">
+      <div class="form-group mb-3">
+        <label for="name" class="form-label">Tên môn học</label>
+        <input class="form-control" type="text" id="name" name="name" value="<%= subject.name %>" />
+      </div>
+      <div class="form-group mb-3">
+        <label class="form-label" for="type">Loại môn học</label>
+        <input class="form-control" type="text" id="type" name="type" value="<%= subject.type %>" />
+      </div>
+      <div class="form-group mb-3">
+        <label class="form-label" for="semester">Học kỳ</label>
+        <input class="form-control" type="text" id="semester" name="semester" value="<%= subject.semester %>" />
+      </div>
+      <div class="form-group mb-3">
+        <label class="form-label" for="faculty">Khoa</label>
+        <input class="form-control" type="text" id="faculty" name="faculty" value="<%= subject.faculty %>" />
+      </div>
+      <div class="form-group mb-3">
+        <label class="form-label" for="image">Hình ảnh</label>
+        <input class="form-control" type="file" id="image" name="image" value="<%= subject.image %>" />
+      </div>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+  </body>
+</html>

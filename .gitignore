@@ -10,6 +10,9 @@ dist/
 local
 .env
 
+# test artifact files
+*.test.js
+
 # Compiled Java class files
 *.class
 

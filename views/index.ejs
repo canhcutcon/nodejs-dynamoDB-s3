@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="./index.css" />
+    <title>Application</title>
+  </head>
+  <body>
+    <div class="content">
+      <h1>Application</h1>
+      <p>Welcome to the application</p>
+      <div class="form">
+        <form action="/subjects" method="post" enctype="multipart/form-data">
+          <div class="form-group mb-3">
+            <label for="name" class="form-label">Tên môn học</label>
+            <input class="form-control" type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="type">Loại môn học</label>
+            <input class="form-control" type="text" id="type" name="type" required />
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="semester">Học kỳ</label>
+            <input class="form-control" type="text" id="semester" name="semester" required />
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="faculty">Khoa</label>
+            <input class="form-control" type="text" id="faculty" name="faculty" required />
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="image">Hình ảnh</label>
+            <input class="form-control" type="file" id="image" name="image" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Thêm môn học</button>
+        </form>
+      </div>
+
+      <!-- FILEPATH: /Users/user/backend-nodejs/server/views/index.ejs -->
+      <!-- 
+        Render danh sách môn học có trong data trả về từ server, nếu không có thì hiển thị thông báo "No subjects found"
+        Mỗi dòng trong bảng hiển thị thông tin của môn học như ID, tên, loại, học kỳ, khoa, và hình ảnh 
+        Bảng được điền dữ liệu từ mảng "subjects" 
+        Mỗi môn học có thể thực hiện các hành động như "Edit" và "Delete"
+      -->
+      <h2 class="title">Danh sách môn học</h2>
+      <div class="table">
+        <!-- table.ejs -->
+        <table class="table" id="subjects">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Tên môn học</th>
+              <th>Loại môn học</th>
+              <th>Học kỳ</th>
+              <th>Khoa</th>
+              <th>Hình ảnh</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (subjects.length) { %> <% subjects.forEach(function(subject) { %>
+            <tr>
+              <td><%= subject.id %></td>
+              <td><%= subject.name %></td>
+              <td><%= subject.type %></td>
+              <td><%= subject.semester %></td>
+              <td><%= subject.faculty %></td>
+              <td><img src="<%= subject.image %>" alt="image" width="100" height="100" /></td>
+              <td>
+                <a href="/subjects/<%= subject.id %>" class="btn btn-primary">Edit</a>
+                <form action="/subjects/delete/<%= subject.id %>" method="POST">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </td>
+            </tr>
+            <% }); %> <% } else { %>
+            <tr>
+              <td colspan="7">No subjects found</td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
