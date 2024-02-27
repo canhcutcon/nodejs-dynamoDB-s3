@@ -70,7 +70,16 @@ Controller.post = async (req, res) => {
   }
 };
 
+// method put sẽ thực hiện cập nhật thông tin của subject dựa vào id
 Controller.put = async (req, res) => {
+  /**
+   * Bước 1: Validate dữ liệu trước khi cập nhật subject
+   * Bước 2: Nếu dữ liệu không hợp lệ thì trả về lỗi
+   * Bước 3: Nếu dữ liệu hợp lệ thì thực hiện cập nhật thông tin của subject bằng method updateSubject của SubjectModel mà ta đã tạo
+   * Bước 4: Trả về thông báo cập nhật subject thành công
+   * Bước 5: Xử lý lỗi nếu có
+   * Bước 6: Chú ý: ở đây ta cần thực hiện upload file ảnh mới lên S3 nếu người dùng thay đổi file ảnh
+   */
   try {
     const { id } = req.params;
     const errors = validateUpdate(req.body);
@@ -83,12 +92,17 @@ Controller.put = async (req, res) => {
     const subject = await SubjectModel.updateSubject(id, { name, type, semester, faculty, image: imageUrl });
     if (subject) {
       console.log("Subject updated", subject);
-      res.redirect("/subjects");
+      res.redirect("/subjects"); // sau khi cập nhật subject thành công thì chuyển hướng về trang danh sách các subject
     }
   } catch (error) {}
 };
 
+// method delete sẽ thực hiện xóa subject dựa vào id
 Controller.delete = async (req, res) => {
+  /**
+   * Bước 1: Lấy id của subject từ param của request
+   * Bước 2: Thực hiện lấy thông tin của subject dựa vào id bằng method getOneSubject của SubjectModel mà ta đã tạo
+   */
   try {
     const { id } = req.params;
     const existSubject = await SubjectModel.getOneSubject(id);

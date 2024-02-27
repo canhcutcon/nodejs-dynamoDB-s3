@@ -70,6 +70,7 @@
               <td><%= subject.faculty %></td>
               <td><img src="<%= subject.image %>" alt="image" width="100" height="100" /></td>
               <td>
+                <!-- Khi click vào nút "Edit" sẽ chuyển đến trang "/subjects/<%= subject.id %>" để chỉnh sửa thông tin môn học -->
                 <a href="/subjects/<%= subject.id %>" class="btn btn-primary">Edit</a>
                 <form action="/subjects/delete/<%= subject.id %>" method="POST">
                   <button type="submit" class="btn btn-danger">Delete</button>
